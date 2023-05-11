@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scripts</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="top_navbar">
+            <div class="logo">
+                <a href="#">Scripts</a>
+            </div>
+            <div class="top_menu">
+                <div class="home_link">
+                    <a href="index.html">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span>Home</span>
+                    </a>
+                </div>
+                <div class="right_info">
+                    <div class="icon_wrap">
+                        <div class="icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </div>
+                    <div class="icon_wrap">
+                        <div class="icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main_body">
+
+            <div class="sidebar_menu">
+                <div class="inner__sidebar_menu">
+
+                    <ul id="menu_items">
+
+                        <li>
+                            <a href="#" class="active">
+                                <!-- <span class="icon"><i class="fas fa-chart-pie"></i></span> -->
+                                <span class="Script_list" id="CP" onclick="displayInfo('iframeCP')">Check
+                                    Patchinstall</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <!-- <span class="icon"><i class="fas fa-address-book"></i></span> -->
+                                <span class="Script_list" id="CSD"
+                                    onclick="displayInfo('iframeCSD')">Clear-SoftwareDistribution</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <!-- <span class="icon"><i class="fas fa-address-card"></i></span> -->
+                                <span class="Script_list" id="DPR" onclick="displayInfo('iframeDPR')">Delete Patch
+                                    Report </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <!-- <span class="icon"><i class="fab fa-blogger"></i></span> -->
+                                <span class="Script_list" id="IOSP" onclick="displayInfo('iframeIOSP')">Install OS
+                                    Patches</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <!-- <span class="icon"><i class="fas fa-map-marked-alt"></i></span> -->
+                                <span class="Script_list" id="MUI" onclick="displayInfo('iframeMUI')">Manual Updates
+                                    Installation</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <!-- <span class="icon"><i class="fas fa-map-marked-alt"></i></span> -->
+                                <span class="Script_list" id="PR" onclick="displayInfo('iframePR')">Patch Report</span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+
+                    <div class="hamburger">
+                        <div class="inner_hamburger">
+                            <span class="arrow">
+                                <i class="fas fa-long-arrow-alt-left"></i>
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container">
+
+                <div class="item_script">
+                    
+            
+                    <iframe src="scripts\check-patchinstall.ps1" class="script1" id="iframeCP" frameborder="0"></iframe>
+
+                    <iframe src="scripts\clear-softwaredistribution.ps1" class="script1" id="iframeCSD" frameborder="0"></iframe>
+
+                    <iframe src="scripts\delete_patch_report_task.ps1" class="script1" id="iframeDPR" frameborder="0"></iframe>
+
+                    <iframe src="scripts\install_ospatches.ps1" class="script1" id="iframeIOSP" frameborder="0"></iframe>
+
+                    <iframe src="scripts\manual_updates_installation.ps1" class="script1" id="iframeMUI" frameborder="0"></iframe>
+
+                    <iframe src="scripts\patch_report" class="script1" id="iframePR" frameborder="0"></iframe>
+
+                  
+                </div>
+
+                <!-- <iframe src="scripts\check-patchinstall.ps1" allow="clipboard-read; clipboard-write" id="your-iframe-id"></iframe>
+                <button onclick="copyCode('your-iframe-id')">Copy Code</button> -->
+
+
+            </div>
+        </div>
+    </div>
+    <script src="js\demo.js"></script>
+
+</body>
+
+</html>

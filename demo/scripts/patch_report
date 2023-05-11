@@ -1,0 +1,334 @@
+<#
+
+.DESCRIPTION
+This script will capture the latest important information of OS Patching log of multiple server. 
+
+
+Output File Path (By Default it will be "C:\ops\os_patching")
+
+.EXAMPLE
+
+PS C:\>.\OS_Patching_Log_Info.ps1
+
+
+.NOTES
+
+Script Name    : OS Patching Log info
+Script Version : 1.0
+Modules Used   : 
+PS Version     : 3.0 & Above
+Run Mode       : Administrator
+Developed By   : Prince Kumar and Sharanya Shetty
+Organization   : Capgemini
+email id       : prince.c.kumar@capgemini.com, sharanya.a.shetty@capgemini.com
+Modified By    : 
+
+#>
+
+# parameters
+param(
+  [Parameter(Mandatory = $false)]
+  [String] $email,
+  [String] $reboot
+)
+
+# Removing the old log file
+$old_email_log ="c:\ops\os_patching\logs\email_log.txt"
+
+if ( Test-Path $old_email_log ) {
+  Remove-Item -force $old_email_log
+}
+
+# Moving the log file to os_patching
+$Email_log ="c:\ops\os_patching\logs\email_log.txt"
+
+if ( Test-Path $Email_log ) {
+  Remove-Item -force $Email_log
+}
+
+$logPath = "c:\ops\os_patching\logs\patching_status.txt"
+$email_addr = $email
+$reboot_val = $reboot
+Write-Host $email_addr
+$update_status = 'failed'
+
+# Function for the WriteLog
+function log-entry($level, $msg) {
+  write-host $msg
+  if($script:Email_log -ne $null) {
+    $t = get-date -format u
+    $entry = "$t`t$level`t$msg"
+    $entry | out-file -filepath $script:Email_log -Append
+  }
+}
+# Delete msu files
+$Files = Get-ChildItem -Path 'C:\ops' -Filter *.msu -Recurse
+if ( $Files -ne $NULL ) {
+  foreach($file in $Files.Name){
+    $file_path="C:\ops\$file"
+    log-entry 'info' "Deleting $file_path"
+    Remove-Item -force $file_path
+  }
+}
+
+#Function for sending email
+function send_patch_status($email, $patch_status){
+## Variables
+$smtpMail ="smtp.resideo.com"  ## Add SMTP Server Name ##
+$from ="patching_notifications@resideo.com"
+$to=$email.Split(",").Trim()
+$to_tmp = @()
+foreach($i in $to)
+{
+  $to_tmp += $i
+}
+$success_to = $to_tmp
+$success_cc = "isresideo-wintel.in@capgemini.com"
+$IThelp = "ithelp@resideo.com"
+$failed_cc = @("isresideo-wintel.in@capgemini.com";$success_to)
+$scriptName="Install Patches"
+$server_name=hostname
+$subject="$server_name OS Patching Status : $patch_status"
+$endDTM = (Get-Date)
+$inputType="Email"
+$success_body = "HI, 
+
+*** This is an Automated message post patching of the server. ***
+
+Patching for server $server_name has been completed successfully.
+Please check for any manual actions or application testing to be done on the server post the reboot. 
+
+In case of any queries or details contact - Wintel Team.
+
+Thanks and Regards,
+Automation Team
+
+# Do not reply to this email, this is an auto-generated email."
+  
+$failed_body = "HI Team, 
+
+Could you please raise and incident for the server $server_name.
+
+Issue: Patching has failed for the server - $server_name . Please assign the ticket to the respective server support group for troubleshooting.
+Severity: P3
+
+This is an Automated message post patching of the server. The server need manual intervention for the Patches installation Issue.
+
+Please check the file C:\ops\os_patching\logs\Patching_Status.txt, if it exists, for the patches status/installation details.
+
+In case of any queries or details contact - Wintel Team / Automation Team.
+
+Thanks and Regards,
+Automation Team
+
+# Do not reply to this email, this is an auto-generated email."
+
+$partial_success_body = "HI, 
+
+This is an Automated message post patching of the server. 
+
+Patching for server $server_name is completed partially.
+Security updates installation is successful; but one or more application updates installation has failed.
+Please check the file C:\ops\os_patching\logs\Patching_Status.txt for the patches status/installation details.
+
+In case of any queries or details contact - Wintel Team.
+
+Thanks and Regards,
+Automation Team
+
+# Do not reply to this email, this is an auto-generated email."
+
+################Sending status via email########################
+if ($update_status -eq 'success'){
+    Send-MailMessage -Body $success_body -Subject $subject -SmtpServer $smtpMail -From $from -To $success_to -Cc $success_cc -Priority High
+        }
+if ($update_status -eq 'failed'){
+    Send-MailMessage -Body $failed_body -Subject $subject -SmtpServer $smtpMail -From $from -To $IThelp -Cc $failed_cc -Priority High
+    #Send-MailMessage -Body $failed_body -Subject $subject -SmtpServer $smtpMail -From $from -To $success_to -Cc $failed_to -Priority High
+    }
+if ($update_status -eq 'partial success'){
+    Send-MailMessage -Body $partial_success_body -Subject $subject -SmtpServer $smtpMail -From $from -To $success_to -CC $success_cc -Priority High
+    }
+
+} # ### SENDPATCH REPORT FUNCTION ENDS
+
+Try {
+    ###########Check if ops path is present##################################
+    $Testops = Test-Path -path "C:\ops"
+    $Test = Test-Path -path "C:\ops\os_patching"
+    If ($Testops -eq $True -and $Test -eq $True)
+    {
+        Write-Host "Ops path exist"
+    }
+    #$PatchFile= "C:\ops\os_patching\Patching_Status.txt"
+    if (Test-Path $logPath) {
+      Remove-Item $logPath
+    }
+    $OutputFilePath = "C:\ops"
+    $Computer=$env:COMPUTERNAME
+    #Write-Host "Processing $Computer" -ForegroundColor Green
+    $log = 'C:\ops\os_patching\os_patching_log.txt'
+
+    #################### Output log file Path #################################
+    $OutputLogFilePath = "C:\ops\os_patching\logs"
+    #$FilePath = "C:\ops\os_patching"                           
+    $folder = New-Item -Path "$OutputLogFilePath\TemperorylogFile" -ItemType "directory"
+    $Path = "$OutputLogFilePath\TemperorylogFile"
+    Start-Sleep -Seconds 1
+
+    ######################### log file last modified date #####################
+    $log_lastModifiedDate = (Get-Item $log).LastWriteTime | Get-Date -format "M/d/yyyy" | ForEach-Object { $_ -replace "-", "/" }
+    Write-Host "Latest log date $log_lastModifiedDate"
+    
+
+    ######################## Filtering the current log ########################
+    [String]$g = Get-Content -Path $log -Raw
+    $content = $g.Substring($g.IndexOf($log_lastModifiedDate) + 1)
+    $content > "$Path\filterLogFile.txt"
+    $filteredLog = "$Path\filterLogFile.txt"
+    #################### Main Script ##########################################
+    get-content $filteredLog | select-string -pattern "Updates in post search criteria" -encoding ASCII | out-file -FilePath "$Path\text1.txt" -Append
+    #$regex = "Found [0] Updates in post search criteria"
+
+    gc "$Path\text1.txt" | where { $_ -ne "" } > "$Path\text2.txt"
+
+    $logContents = Get-content -Path "$Path\text2.txt"
+    ForEach ( $logContent in $logContents) {
+        If ( $logContent -eq "Found [0] Updates in post search criteria") {
+        }
+        else {
+            $pattern = $logContent
+            $index = Select-String -pattern ([regex]::Escape($pattern)) $log -AllMatches | ForEach-Object { $_.LineNumber }
+            (Get-Content $log)[$index]
+            $log_result = Select-String -pattern ([regex]::Escape($pattern)) $log -Context 9 | % { $_.Context.PostContext } 
+            $log_result | Out-File "$OutputLogFilePath\Patchinglog.txt"
+        }
+    }
+    ####################### Delete the created folder ###############################################
+    Start-Sleep -Seconds 3
+    Remove-Item -Path $Path -Recurse -Force
+    #
+    Write-Host "############# Completed ############" -ForegroundColor Green
+    Write-Host ""
+    Write-Host ""
+
+    ################################# Function to get the output data ##############################
+    Start-Sleep -Seconds 1
+    #$currentDate = (Get-Date -UFormat "%m/%d/%Y %R" | ForEach-Object { $_ -replace "/", "-" } | ForEach-Object { $_ -replace ":", "-" }) | ForEach-Object { $_ -replace " ", "_" }
+    $final_fileName = "PatchingLog.txt"
+    $finalOutFilePath = "$OutputLogFilePath\$final_fileName"
+
+    ################# Function to Capture the status of Patch server #########################################
+    #$currentDate = (Get-Date -UFormat "%m/%d/%Y %R" | ForEach-Object { $_ -replace "/", "-" } | ForEach-Object { $_ -replace ":", "-" }) | ForEach-Object { $_ -replace " ", "_" }
+    $final_fileName1 = "PatchLogStatus"
+    $filenameFormat1 = $final_fileName1
+    $finalOutFilePath1 = "$OutputLogFilePath\$filenameFormat1"
+
+    $deletefile="C:\ops\os_patching\logs\deleteFile.txt"
+    $PatchingLog="C:\ops\os_patching\logs\PatchingLog.txt"
+    # Get-Content $finalOutFilePath | select-string -pattern "Accepted","Installed","Failed" -encoding ASCII | Out-File $deletefile
+    Get-Content $finalOutFilePath | select-string -pattern "Installed","Failed" -encoding ASCII | Out-File $deletefile
+    Get-Content $deletefile | Select-String -pattern "Updates" -notmatch | Out-File $logPath
+    if (Test-Path $deletefile) {
+      Remove-Item $deletefile -Force
+    }
+    if (Test-Path $PatchingLog) {
+      Remove-Item $PatchingLog -Force
+    }
+
+    
+    Write-Host "############# Script Execution Finished ############"
+    }
+catch{
+    Write-Output "Ops path does not exist in server $Computer"
+    $update_status = 'failed'
+}   
+if (Test-Path $logPath) {
+$Status= Get-Content "$logPath"
+if ($Status -match "Failed")
+{
+    if ( $reboot_val -ne $NULL ){ # call to patch report is after manual patch script execution
+    $hot_fixes_installed = Get-HotFix
+    # $update_status='failed'
+    $failed_updates=@()
+    $file_content = Get-Content "$logPath" | where{$_ -ne ""}
+    $updated_content=$file_content -replace '\s+', ' '
+    foreach($line in $updated_content)
+    {
+        $values=$line.split(' ')
+        $status=$values[2]
+        $kb_id=$values[3]
+        log-entry 'info' "$kb_id : $status"
+        if( $status -eq 'Failed'){
+            $failed_updates+=$kb_id
+        }
+    }
+    log-entry 'info' "Updates failed installation from Task: $failed_updates"
+    $installed_updates=Get-HotFix | Select-object 'HotFixID'
+    $hotfix=$installed_updates.HotFixID
+    log-entry 'info' "Hotfix installed on server:$hotfix"
+    foreach($kb_id in $failed_updates){
+        if($hotfix -contains $kb_id){
+            log-entry 'info' "$kb_id successfully installed by manual installation script"
+            $update_status='success'
+        }
+        else { $update_status='failed' }
+    }
+    log-entry 'info' "Update status : $update_status"
+    }
+    $update_status= "failed"   
+}
+else
+{
+  $update_status= "success"
+}
+}
+
+# Adding logic to enhance reporting to success/partial success and failure.
+$content= Get-Content C:\ops\os_patching\logs\patching_status.txt
+[int]$appupdatecount=0
+[int]$secupdatecount=0
+foreach($raw_line in $content)
+{
+  $line=$raw_line -replace '\s+', ' '
+  if ( $line.Contains("Failed KBSM") -or $line.Contains("Failed KBGC") -or $line.Contains("Failed KBMF") -or $line.Contains("Failed KB7Z") -or $line.Contains("Failed KBGW") -or $line.Contains("Failed KBAR") -or $line.Contains("Failed KBPU"))
+  {
+    $appupdatecount=$appupdatecount+1
+  }
+  elseif($line.Contains("Failed KB"))
+  {
+    $secupdatecount=$secupdatecount+1
+  }
+  else
+  {
+    $update_status= "success"
+  }
+}
+if($secupdatecount -eq 0 -and $appupdatecount -ge 1)
+{
+  $update_status="partial success"
+}
+if($secupdatecount -ge 1)
+{
+  $update_status= "failed"
+}
+# $appupdatecount
+# $secupdatecount
+# $update_status
+
+# Finally call to send patch status function to send patch report over email. 
+if ($update_status -eq 'success')
+{
+  send_patch_status "$email_addr" "success" 
+}
+if ($update_status -eq 'failed')
+{
+  send_patch_status "$email_addr" "failed"
+}
+if ($update_status -eq 'partial success')
+{
+  send_patch_status "$email_addr" "partial success"
+}
+
+# Delete the scheduled taks created to execute patch report script.
+C:\ops\os_patching\delete_patch_report_task.ps1

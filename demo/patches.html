@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>patches</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$(".hamburger").click(function () {
+				$(".wrapper").toggleClass("active")
+			})
+		});
+	</script>
+</head>
+
+<body>
+
+	<div class="wrapper">
+
+		<div class="top_navbar">
+			<div class="logo">
+				<a href="#">Patches</a>
+			</div>
+			<div class="top_menu">
+				<div class="home_link">
+					<a href="index.html">
+						<span class="icon"><i class="fas fa-home"></i></span>
+						<span>Home</span>
+					</a>
+				</div>
+				<div class="right_info">
+					<div class="icon_wrap">
+						<div class="icon">
+							<i class="fas fa-bell"></i>
+						</div>
+					</div>
+					<div class="icon_wrap">
+						<div class="icon">
+							<i class="fas fa-cog"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="main_body">
+
+			<div class="sidebar_menu">
+				<div class="inner__sidebar_menu">
+
+					<ul id="menu_items">
+						<li>
+							<a href="#">
+								<span class="active">
+									<!-- <i class="fas fa-border-all"></i></span> -->
+									<span class="list" onclick="displayInfo2('windows2008')">windows 2008</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="icon">
+									<!-- <i class="fas fa-border-all"></i></span> -->
+									<span class="list" onclick="displayInfo2('windows2008R2')">windows 2008 R2</span>
+							</a>
+						</li>
+						<li>
+							<a href="#" >
+								<!-- <span class="icon"><i class="fas fa-chart-pie"></i></span> -->
+								<span class="list" onclick="displayInfo2('windows2012')">windows 2012</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<!-- <span class="icon"><i class="fas fa-address-book"></i></span> -->
+								<span class="list" onclick="displayInfo2('windows2012R2')">windows 2012 R2</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<!-- <span class="icon"><i class="fas fa-address-card"></i></span> -->
+								<span class="list" onclick="displayInfo2('windows2016')">windows 2016</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<!-- <span class="icon"><i class="fas fa-map-marked-alt"></i></span> -->
+								<span class="list" onclick="displayInfo2('RHEL')">linux RHEL</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<!-- <span class="icon"><i class="fas fa-map-marked-alt"></i></span> -->
+								<span class="list" onclick="displayInfo2('CentOS')">linux Cent OS</span>
+							</a>
+						</li>
+						
+					</ul>
+
+
+					<div class="hamburger">
+						<div class="inner_hamburger">
+							<span class="arrow">
+								<i class="fas fa-long-arrow-alt-left"></i>
+								<i class="fas fa-long-arrow-alt-right"></i>
+							</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="item_wrap" id="windows2008">
+					<div class="item" id="windows2008">
+						<p>2008</p>
+						<p>2021-03 Update for Windows Server 2008 for x86-based Systems (KB5001642)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2021/03/windows6.0-kb5001642-x86_9b7debbc9bd6c2a699ce17fefe70c9e15657ae52.msu">
+
+							<button class="download">Download</button>
+
+						</a>
+					</div>
+					<div class="item" id="windows2008">
+						<p>2008</p>
+						<p>2020-09 Update for Windows Server 2008 for x64-based Systems (KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+						</a>
+
+					</div>
+				</div>
+
+				<div class="item_wrap" id="windows2008R2">
+					<div class="item"  id="windows2008R2">
+						<p>2008R2</p>
+						<p>2020-09 Update for Windows Server 2008 for x64-based Systems (KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+					</div>
+					<div class="item"  id="windows2008R2">
+						<p>2008R2</p>
+						<p style="color: black;"> 2020-09 Update for Windows Server 2008 for x64-based Systems
+							(KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+						</a>
+
+					</div>
+				</div>
+
+				<div class="item_wrap" id="windows2012">
+					<div class="item" id="windows2012">
+						<p>2012</p>
+						<p>2020-09 Update for Windows Server 2008 for x64-based Systems (KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+					</div>
+					<div class="item" id="windows2012">
+						<p>2012</p>
+						<p style="color: black;"> 2020-09 Update for Windows Server 2008 for x64-based Systems
+							(KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+						</a>
+
+					</div>
+				</div>
+
+				<div class="item_wrap" id="windows2012R2">
+					<div class="item">
+						<p>2012R2</p>
+						<p>2020-09 Update for Windows Server 2008 for x64-based Systems (KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+					</div>
+					<div class="item">
+						<p>2012R2</p>
+						<p style="color: black;"> 2020-09 Update for Windows Server 2008 for x64-based Systems
+							(KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+						</a>
+
+					</div>
+				</div>
+
+				<div class="item_wrap" id="windows2016">
+					<div class="item">
+						<p>2016</p>
+						<p>2020-09 Update for Windows Server 2008 for x64-based Systems (KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+					</div>
+					<div class="item">
+						<p>2016</p>
+						<p style="color: black;"> 2020-09 Update for Windows Server 2008 for x64-based Systems
+							(KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+						</a>
+
+					</div>
+				</div>
+
+				<div class="item_wrap" id="RHEL">
+					<div class="item">
+						<p>RHEL</p>
+						<p>2020-09 Update for Windows Server 2008 for x64-based Systems (KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+					</div>
+					<div class="item">
+						<p>RHEL</p>
+						<p style="color: black;"> 2020-09 Update for Windows Server 2008 for x64-based Systems
+							(KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+						</a>
+
+					</div>
+				</div>
+
+				<div class="item_wrap" id="CentOS">
+					<div class="item">
+						<p>CentOS</p>
+						<p>2020-09 Update for Windows Server 2008 for x64-based Systems (KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+					</div>
+					<div class="item">
+						<p>CentOS</p>
+						<p style="color: black;"> 2020-09 Update for Windows Server 2008 for x64-based Systems
+							(KB4566371)</p>
+						<a
+							href="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/uprl/2020/09/windows6.0-kb4566371-x64_d0f4b61f8fe196f56f078a320cd42de260bb90aa.msu">
+
+							<button class="download">Download</button>
+
+						</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

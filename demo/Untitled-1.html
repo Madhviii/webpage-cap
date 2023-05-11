@@ -1,0 +1,57 @@
+
+<html>
+    <head>
+    <title>Vertical Side Navigation Bar</title>
+    <style>
+    .sidebar {
+      width: 20%;
+      float: left;
+      font-family: sans-serif;
+    }
+    
+    .sidebar a {
+      background-color: black;
+      color: white;
+      padding: 16px;
+      text-decoration: none;
+      font-size: 20px;
+      display: block;
+    }
+    
+    .sidebar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    
+    .content {
+      width: 80%;
+      float: left;
+      padding: 10px;
+    }
+    </style>
+    </head>
+    <body>
+    
+    <div class="sidebar">
+      <a href="javascript:void(0)" onclick="document.getElementById('info1').style.display='block';document.getElementById('info2').style.display='none';document.getElementById('info3').style.display='none'; document.getElementById('link1').style.background='#ddd';document.getElementById('link2').style.background='black';document.getElementById('link3').style.background='black';">Link 1</a>
+      <a href="javascript:void(0)" id="link2" onclick="document.getElementById('info1').style.display='none';document.getElementById('info2').style.display='block';document.getElementById('info3').style.display='none'; document.getElementById('link1').style.background='black';document.getElementById('link2').style.background='#ddd';document.getElementById('link3').style.background='black';">Link 2</a>
+      <a href="javascript:void(0)" id="link3" onclick="document.getElementById('info1').style.display='none';document.getElementById('info2').style.display='none';document.getElementById('info3').style.display='block'; document.getElementById('link1').style.background='black';document.getElementById('link2').style.background='black';document.getElementById('link3').style.background='#ddd';">Link 3</a>
+    </div>
+    
+    <div class="content">
+      <div id="info1">
+        <h2>Info 1</h2>
+        <p>Some content in info 1.</p>
+      </div>
+      <div id="info2" style="display:none">
+        <h2>Info 2</h2>
+        <p>Some content in info 2.</p>
+      </div>
+      <div id="info3" style="display:none">
+        <h2>Info 3</h2>
+        <p>Some content in info 3.</p>
+      </div>
+    </div>
+    
+    </body>
+    </html>

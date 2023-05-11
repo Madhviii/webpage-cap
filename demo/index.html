@@ -1,0 +1,88 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>main</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$(".hamburger").click(function(){
+			  $(".wrapper").toggleClass("active")
+			})
+		});
+	</script>
+</head>
+<body>
+
+<div class="wrapper">
+
+	<div class="top_navbar">
+		<div class="logo">
+			<a href="#" class="left_nav">
+				<!-- <div class="logoimg">
+					<img class="resideo_img" src="images\resideo.png" alt="">
+				</div> -->
+				<div class="text">
+					<P class="resideo">Resideo</P>
+					<p class="auto">Automation</p>
+				</div>
+			
+			</a>
+			
+		</div>
+		<div class="top_menu">
+			<div class="home_link" id="home">
+				<a href="index.html">
+					<span class="icon"><i class="fas fa-home"></i></span>
+					<span>Home</span>
+				</a>
+			</div>
+			<div class="right_info">
+				<!-- <div class="icon_wrap">
+					<div class="icon">
+						<i class="fas fa-user"></i>
+					</div>
+				</div>
+				<div class="icon_wrap">
+					<div class="icon">
+						<p class="fas fa-cog"></p>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+
+    <div class="maincontainer">
+
+        <a href="patches.html">
+            <div class="main">
+                <img  class="itemimg" src="images\software (1).png" alt="">
+                <p class="name">Patches</p>
+            </div>
+        </a>
+
+        <a href="scripts.html">
+            <div class="main">
+                <img class="itemimg" src="images\script (1).png" alt="">
+                <p class="name">Scripts</p>
+            </div>
+        </a>
+
+        <a href="tools.html">
+            <div class="main">
+                <img class="itemimg" src="images\software.png" alt="">
+                <p class="name">Tools</p>
+            </div>
+			
+        </a>
+    </div>
+</div>
+
+
+<script src="js\demo.js"></script>
+</body>
+</html>
